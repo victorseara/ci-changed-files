@@ -40,8 +40,6 @@ jobs:
         id: changes-check-action
         uses: tj-actions/changed-files@v46.0.1
         with: 
-            files: |
-                *
             files_ignore: |
                 package.json
                 pnpm-lock.yaml
