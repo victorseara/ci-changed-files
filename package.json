@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"No test specified\"",
     "start": "node src/index.js"
   },
   "keywords": [],
