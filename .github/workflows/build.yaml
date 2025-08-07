@@ -45,6 +45,11 @@ jobs:
                 pnpm-lock.yaml
             token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Prevent dependency updates with code changes
+        if: steps.dependency-check-action.outputs.all_changed_files_count == '2' && steps.changes-check-action.outputs.any_changed == 'true'
+        run: |
+          echo "Dependency updates detected with code changes. Please review the changes before merging."
+          exit 1
       - name: Debug outputs
         run: |
           echo "dependency-check-action outputs: ${{ toJson(steps.dependency-check-action.outputs) }}"
