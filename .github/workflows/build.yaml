@@ -26,3 +26,29 @@ jobs:
 
       - name: Run tests
         run: pnpm test
+     
+      - name: Capture changes in project dependencies
+        id: dependency-check-action
+        uses: tj-actions/changed-files@v46.0.1
+        with: 
+            files: |
+                package.json
+                pnpm-lock.yaml
+            token: ${{ secrets.GITHUB_TOKEN }}
+     
+      - name: Capture any changes
+        id: changes-check-action
+        uses: tj-actions/changed-files@v46.0.1
+        with: 
+            files: |
+                *
+            files_ignore: |
+                package.json
+                pnpm-lock.yaml
+            token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Debug outputs
+        run: |
+            echo "all_changed_files_count: ${{ steps.dependency-check-action.outputs.all_changed_files_count }}"
+            echo "any_changed: ${{ steps.changes-check-action.outputs.any_changed }}"
+        shell: bash
